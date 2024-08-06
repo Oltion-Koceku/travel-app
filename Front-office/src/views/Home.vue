@@ -1,9 +1,22 @@
 <script>
+import Axios from 'axios'
+import store from '../data/store.js'
 export default {
-  data(){
-      return{
-        
-      }
+  data() {
+    return {};
+  },
+
+  methods:{
+    getApi(){
+      axios.get(store.api + 'api/trips/index')
+      .then(res => {
+        console.log(res.data);
+      })
+
+      .catch( errors =>{
+        console.log(errors.message);
+      })
+    }
   }
 };
 </script>
@@ -13,20 +26,23 @@ export default {
     <div class="container my-5">
       <div class="main">
         <nav>
-          <div class="btn btn-success">Aggiungi Viaggio</div>
+          <div class=" p-1 btn btn-success">Aggiungi Viaggio</div>
         </nav>
         <div class="trips">
           <div class="trip">
-            <div id="checklist">
-              <input id="01" type="checkbox" name="r" value="1" checked />
-              <label for="01">Bread</label>
-              <input id="02" type="checkbox" name="r" value="2" />
-              <label for="02">Cheese</label>
-              <input id="03" type="checkbox" name="r" value="3" />
-              <label for="03">Coffee</label>
+            <div class="list">
+              <h2>List Item Hover Effect</h2>
+              <ul>
+                <li><a>Lorem ipsum dolor sit amet</a></li>
+                <li><a>Consectetur adipisicing elit</a></li>
+                <li><a>Ut labore et dolore magna aliqua</a></li>
+                <li><a>Ut enim ad minim veniam</a></li>
+                <li><a>Quis nostrud exercitation ullamco</a></li>
+                <li><a>Laboris nisi ut aliquip ex</a></li>
+              </ul>
             </div>
-            <div class="socials">
-            </div>
+
+            <div class="socials"></div>
           </div>
         </div>
       </div>
@@ -36,213 +52,76 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-  #checklist {
-  --background: #ffffff;
-  --text: #414856;
-  --check: #4F29F0;
-  --disabled: #C3C8DE;
-  --width: 100px;
-  --height: 140px;
-  --border-radius: 10px;
-  background: var(--background);
-  width: var(--width);
-  height: var(--height);
-  border-radius: var(--border-radius);
-  position: relative;
-  box-shadow: 0 10px 30px rgba(#414856, 0.05);
-  padding: 30px 45px;
-  display: grid;
-  grid-template-columns: 30px auto;
-  align-items: center;
-  label {
-    font-size: 25px;
-    color: var(--text);
-    position: relative;
-    cursor: pointer;
-    display: grid;
-    align-items: center;
-    width: fit-content;
-    transition: color .3s ease;
-    &::before,
-    &::after {
-      content:"";
-      position: absolute;
-    }
-    &::before {
-      height: 2px;
-      width: 8px;
-      left: -27px;
-      background: var(--check);
-      border-radius: 2px;
-      transition: background .3s ease; 
-    }
-    &:after {
-      height: 4px;
-      width: 4px;
-      top: 8px;
-      left: -25px;
-      border-radius: 50%;
-    }
-  }
-  input[type="checkbox"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    position: relative;
-    height: 15px;
-    width: 15px;
-    outline: none;
-    border: 0;
-    margin: 0 15px 0 0;
-    cursor: pointer;
-    background: var(--background);
-    display: grid;
-    align-items: center;
-    &::before,
-    &::after {
-      content:"";
-      position: absolute;
-      height: 2px;
-      top: auto;
-      background: var(--check);
-      border-radius: 2px;
-    }
-    &::before {
-      width: 0px;
-      right: 60%;
-      transform-origin: right bottom;
-    }
-    &::after {
-      width: 0px;
-      left: 40%;
-      transform-origin: left bottom;
-    }
-    &:checked {
-      &::before {
-        animation: check-01 .4s ease forwards;
-      }
-      &::after {
-        animation: check-02 .4s ease forwards;
-      }
-      + label {
-        color: var(--disabled);
-        animation: move .3s ease .1s forwards;
-        &::before {
-          background: var(--disabled);
-          animation: slice .4s ease forwards;
-        }
-        &::after {
-          animation: firework .5s ease forwards .1s;
-        }
-      }
-    }
-  }
-}
+  .trips{
+    background-color: #272626;
 
-@keyframes move {
-  50% {
-    padding-left: 8px;
-    padding-right: 0px;
   }
-  100% {
-    padding-right: 4px;
-  }
-}
-@keyframes slice {
-  60% {
-    width: 100%;
-    left: 4px;
-  }
-  100% {
-    width: 100%;
-    left: -2px;
-    padding-left: 0;
-  }
-}
-@keyframes check-01 {
-  0% {
-    width: 4px;
-    top: auto;
-    transform: rotate(0);
-  }
-  50% {
-    width: 0px;
-    top: auto;
-    transform: rotate(0);
-  }
-  51% {
-    width: 0px;
-    top: 8px;
-    transform: rotate(45deg);
-  }
-  100% {
-    width: 5px;
-    top: 8px;
-    transform: rotate(45deg);
-  }
-}
-@keyframes check-02 {
-  0% {
-    width: 4px;
-    top: auto;
-    transform: rotate(0);
-  }
-  50% {
-    width: 0px;
-    top: auto;
-    transform: rotate(0);
-  }
-  51% {
-    width: 0px;
-    top: 8px;
-    transform: rotate(-45deg);
-  }
-  100% {
-    width: 10px;
-    top: 8px;
-    transform: rotate(-45deg);
-  }
-}
-@keyframes firework {
-  0% {
-    opacity: 1;
-    box-shadow: 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0, 0 0 0 -2px #4F29F0;
-  }
-  30% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    box-shadow: 0 -15px 0 0px #4F29F0, 14px -8px 0 0px #4F29F0, 14px 8px 0 0px #4F29F0, 0 15px 0 0px #4F29F0, -14px 8px 0 0px #4F29F0, -14px -8px 0 0px #4F29F0;
-  }
-}
 
-
-//--- ## BASIC #############
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: "Poppins", sans-serif;
+}
 body {
-  background: #E8EBF3;
-  height: 100vh;
-  font: 400 16px 'Varela Round', sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  .socials {
-    position: fixed;
-    display: block;
-    left: 20px;
-    bottom: 20px;
-    > a {
-      display: block;
-      width: 30px;
-      opacity: .2;
-      transform: scale(var(--scale, .8));
-      transition: transform .3s cubic-bezier(0.38,-0.12, 0.24, 1.91);
-      &:hover {
-        --scale: 1;
-      }
-    }
-  }
+display: flex;
+justify-content: center;
+align-items: center;
+background: #000;
+min-height: 100vh;
 }
+.list {
+position: relative;
+}
+.list h2 {
+color: #fff;
+font-weight: 700;
+letter-spacing: 1px;
+margin-bottom: 10px;
+}
+.list ul {
+position: relative;
+}
+.list ul li {
+position: relative;
+left: 0;
+color: #fce4ec;
+list-style: none;
+margin: 4px 0;
+border-left: 2px solid #f50057;
+transition: 0.5s;
+cursor: pointer;
+}
+.list ul li:hover {
+left: 10px;
+}
+.list ul li a {
+position: relative;
+padding: 8px;
+padding-left: 12px;
+display: inline-block;
+z-index: 1;
+transition: 0.5s;
+}
+.list ul li:hover a {
+color: #111;
+}
+.list ul li:before {
+content: "";
+position: absolute;
+width: 100%;
+height: 100%;
+background: #f50057;
+transform: scaleX(0);
+transform-origin: left;
+transition: 0.5s;
+}
+.list ul li:hover:before {
+transform: scaleX(1);
+}
+
+
   nav {
     border: solid 1px black;
     padding: 10px;
