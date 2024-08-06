@@ -1,22 +1,28 @@
 <script>
-import Axios from 'axios'
-import store from '../data/store.js'
+import axios from "axios";
+import {store} from '../data/store.js'
 export default {
   data() {
-    return {};
+    return {
+      data : {}
+    };
   },
 
   methods:{
     getApi(){
-      axios.get(store.api + 'api/trips/index')
+      axios.get(store.api + '/api/trips')
       .then(res => {
-        console.log(res.data);
+        this.data = res.data.trips
       })
 
       .catch( errors =>{
         console.log(errors.message);
       })
     }
+  },
+
+  mounted(){
+    this.getApi();
   }
 };
 </script>
@@ -33,12 +39,7 @@ export default {
             <div class="list">
               <h2>List Item Hover Effect</h2>
               <ul>
-                <li><a>Lorem ipsum dolor sit amet</a></li>
-                <li><a>Consectetur adipisicing elit</a></li>
-                <li><a>Ut labore et dolore magna aliqua</a></li>
-                <li><a>Ut enim ad minim veniam</a></li>
-                <li><a>Quis nostrud exercitation ullamco</a></li>
-                <li><a>Laboris nisi ut aliquip ex</a></li>
+                <li v-for="(trip, index) in this.data" :key="index"><a>{{trip.name}} <br>start_date : {{ trip.start_date }} <br> end_date:{{ trip.end_date }}</a></li>
               </ul>
             </div>
 

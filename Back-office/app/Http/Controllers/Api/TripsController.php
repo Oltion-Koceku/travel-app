@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Trip;
 use Illuminate\Http\Request;
 
 class TripsController extends Controller
@@ -12,7 +13,9 @@ class TripsController extends Controller
      */
     public function index()
     {
-        //
+        $trips = Trip::all();
+        return response()->json(compact('trips'));
+
     }
 
     /**
