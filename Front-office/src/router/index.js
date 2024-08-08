@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
+import Addtrip from '@/views/Addtrip.vue'
 import Error404 from '@/views/Error404.vue'
 
 
@@ -10,6 +11,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/addtrip',
+      name: 'addtrip',
+      component: Addtrip
     },
 
     {

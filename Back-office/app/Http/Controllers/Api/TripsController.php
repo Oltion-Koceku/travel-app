@@ -23,7 +23,7 @@ class TripsController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -31,7 +31,15 @@ class TripsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $new_trip = $request->all();
+
+        $trips = new Trip();
+        $trips->name = $new_trip['name'];
+
+        $trips->start_date = $new_trip['start_date'];
+        $trips->end_date = $new_trip['end_date'];
+        $trips->save();
+        return response()->json(compact('trips'));
     }
 
     /**

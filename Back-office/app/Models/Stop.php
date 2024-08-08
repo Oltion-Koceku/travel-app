@@ -8,4 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class Stop extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'day_id',
+        'title',
+        'description',
+        'image',
+        'food',
+        'curiosities',
+        'notes',
+        'rating',
+        'completed',
+        'latitude',
+        'longitude',
+    ];
+
+    public function day()
+    {
+        return $this->belongsTo(Day::class);
+    }
 }

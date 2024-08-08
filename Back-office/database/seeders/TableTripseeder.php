@@ -19,6 +19,7 @@ class TableTripseeder extends Seeder
             $new_trip = new Trip();
             $new_trip->name = $faker->name();
             $new_trip->start_date = $faker->date();
+            $new_trip->description = $faker->text();
             $new_trip->end_date = $faker->date();
             $new_trip->save();
         }

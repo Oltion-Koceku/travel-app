@@ -1,50 +1,55 @@
 <script>
 import axios from "axios";
-import {store} from '../data/store.js'
+import { store } from "../data/store.js";
 export default {
   data() {
     return {
-      data : {}
+      data: {},
     };
   },
 
-  methods:{
-    getApi(){
-      axios.get(store.api + '/api/trips')
-      .then(res => {
-        this.data = res.data.trips
-      })
+  methods: {
+    getApi() {
+      axios
+        .get(store.api + "/api/trips")
+        .then((res) => {
+          this.data = res.data.trips;
+          console.log(this.data);
+          
+        })
 
-      .catch( errors =>{
-        console.log(errors.message);
-      })
-    }
+        .catch((errors) => {
+          console.log(errors.message);
+        });
+    },
   },
 
-  mounted(){
+  mounted() {
     this.getApi();
-  }
+  },
 };
 </script>
 
 <template>
   <div>
-    <div class="container my-5">
+    <div class="container">
       <div class="main">
-        <nav>
-          <div class=" p-1 btn btn-success">Aggiungi Viaggio</div>
-        </nav>
         <div class="trips">
-          <div class="trip">
-            <div class="list">
-              <h2>List Item Hover Effect</h2>
-              <ul>
-                <li v-for="(trip, index) in this.data" :key="index"><a>{{trip.name}} <br>start_date : {{ trip.start_date }} <br> end_date:{{ trip.end_date }}</a></li>
-              </ul>
+            <div v-for="(trip, index) in data" :key="index" class="cardcontainer">
+              <div class="photo">
+                <img
+                  src="https://images.pexels.com/photos/2346006/pexels-photo-2346006.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500"
+                />
+                <div class="photos">Photos</div>
+              </div>
+              <div class="content">
+                <p class="txt4">{{trip.name}}</p>
+                <p class="txt5">{{trip.start_date}} ->  {{ trip.end_date }}</p>
+                <p class="txt2">
+                 {{trip.description}}
+                </p>
+              </div>
             </div>
-
-            <div class="socials"></div>
-          </div>
         </div>
       </div>
     </div>
@@ -53,75 +58,134 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-  .trips{
-    background-color: #272626;
-
+  .trips {
+    background-color: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
   }
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: "Poppins", sans-serif;
-}
-body {
-display: flex;
-justify-content: center;
-align-items: center;
-background: #000;
-min-height: 100vh;
-}
-.list {
-position: relative;
-}
-.list h2 {
-color: #fff;
-font-weight: 700;
-letter-spacing: 1px;
-margin-bottom: 10px;
-}
-.list ul {
-position: relative;
-}
-.list ul li {
-position: relative;
-left: 0;
-color: #fce4ec;
-list-style: none;
-margin: 4px 0;
-border-left: 2px solid #f50057;
-transition: 0.5s;
-cursor: pointer;
-}
-.list ul li:hover {
-left: 10px;
-}
-.list ul li a {
-position: relative;
-padding: 8px;
-padding-left: 12px;
-display: inline-block;
-z-index: 1;
-transition: 0.5s;
-}
-.list ul li:hover a {
-color: #111;
-}
-.list ul li:before {
-content: "";
-position: absolute;
-width: 100%;
-height: 100%;
-background: #f50057;
-transform: scaleX(0);
-transform-origin: left;
-transition: 0.5s;
-}
-.list ul li:hover:before {
-transform: scaleX(1);
-}
-
+  body{
+        margin: 0;
+        padding: 0;
+        font-family: 'roboto' , sans-serif;
+        background-color: #F2F2F2;
+    }
+    h1{
+        text-align: center;
+        color: #333333;
+    }
+    .cardcontainer{
+        width: 350px;
+        height: 550px;
+        background-color: white;
+        margin-left: auto;
+        margin-right: auto;
+        transition: 0.3s;
+        margin-top: 20px;
+    }
+    .cardcontainer:hover{
+        box-shadow: 0 0 45px gray;
+    }
+    .photo{
+        height: 300px;
+        width: 100%;
+    }
+    .photo img{
+        height: 100%;
+        width: 100%;
+    }
+    .txt1{
+        margin: auto;
+        text-align: center;
+        font-size: 17px;
+    }
+    .content{
+        width: 80%;
+        height: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        top: -33px;
+    }
+    .photos{
+        width: 90px;
+        height: 30px;
+        background-color: #E74C3C;
+        color: white;
+        position: relative;
+        top: -30px;
+        padding-left: 10px;
+        font-size: 20px;
+    }
+    .txt4{
+        font-size:27px;
+        position: relative;
+        top: 33px;
+    }
+    .txt5{
+        position: relative;
+        top: 18px;
+        color: #E74C3C;
+        font-size: 23px;
+    }
+    .txt2{
+        position: relative;
+        top: 10px;
+    }
+    .cardcontainer:hover > .photo{
+        height: 200px;
+        animation: move1 0.5s ease both;
+    }
+    @keyframes move1{
+        0%{height: 300px}
+        100%{height: 200px}
+    }
+    .cardcontainer:hover > .content{
+        height: 200px;
+    }
+    .footer{
+        width: 80%;
+        height: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: white;
+        position: relative;
+        top: -15px;
+    }
+    .btn{
+        position: relative;
+        top: 20px;
+    }
+    #heart{
+        cursor: pointer;
+    }
+    .like{
+        float: right;
+        font-size: 22px;
+        position: relative;
+        top: 20px;
+        color: #333333;
+    }
+    .fa-gratipay{
+        margin-right: 10px;
+        transition: 0.5s;
+    }
+    .fa-gratipay:hover{
+        color: #E74C3C;
+    }
+    .txt3{
+        color: gray;
+        position: relative;
+        top: 18px;
+        font-size: 14px;
+    }
+    .comments{
+        float: right;
+        cursor: pointer;
+    }
+    .fa-clock, .fa-comments{
+        margin-right: 7px;
+    }
 
   nav {
     border: solid 1px black;

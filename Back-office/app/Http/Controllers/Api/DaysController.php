@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Day;
 use Illuminate\Http\Request;
 
 class DaysController extends Controller
@@ -28,7 +29,13 @@ class DaysController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $new_day = $request->all();
+        $days = new Day();
+        // $days->trip_id = $new_day['id'];
+        $days->date = $new_day['data'];
+        $days->save();
+        return response()->json(compact('new_day'));
+
     }
 
     /**
