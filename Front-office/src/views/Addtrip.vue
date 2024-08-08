@@ -9,6 +9,7 @@ export default {
         name: "",
         start_date: "",
         end_date: "",
+        description : ''
       },
     };
   },
@@ -20,7 +21,6 @@ export default {
         .then((res) => {
           console.log(res.data);
           store.idTrip = res.data.id;
-          this.$router.push({ name: "days" });
         })
         .catch((errors) => {
           console.log(errors.message);
@@ -89,14 +89,13 @@ export default {
             </div>
 
             <div class="form-group">
-              <label class="text-white" for="end_date"
+              <label class="text-white" for="description"
                 >Descrizione</label
               >
               <textarea
-                type="date"
                 class="form-control"
-                id="end_date"
-                v-model="trip.end_date"
+                id="description"
+                v-model="trip.description"
                 placeholder="Descrizione..."
               />
             </div>

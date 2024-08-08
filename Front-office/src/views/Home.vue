@@ -132,17 +132,6 @@ export default {
         position: relative;
         top: 10px;
     }
-    .cardcontainer:hover > .photo{
-        height: 200px;
-        animation: move1 0.5s ease both;
-    }
-    @keyframes move1{
-        0%{height: 300px}
-        100%{height: 200px}
-    }
-    .cardcontainer:hover > .content{
-        height: 200px;
-    }
     .footer{
         width: 80%;
         height: 100px;

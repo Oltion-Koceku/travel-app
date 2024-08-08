@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Functions\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\Day;
 use App\Models\Trip;
+use DateTime;
 use Illuminate\Http\Request;
 
 class TripsController extends Controller
@@ -15,31 +18,57 @@ class TripsController extends Controller
     {
         $trips = Trip::all();
         return response()->json(compact('trips'));
-
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $new_trip = $request->all();
+        // Definisci le regole di validazione con messaggi personalizzati
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ], [
+            'name.required' => 'Il nome del viaggio è obbligatorio.',
+            'name.string' => 'Il nome del viaggio deve essere una stringa.',
+            'name.max' => 'Il nome del viaggio non può superare i 255 caratteri.',
+            'description.string' => 'La descrizione deve essere una stringa.',
+            'start_date.required' => 'La data di inizio è obbligatoria.',
+            'start_date.date' => 'La data di inizio deve essere una data valida.',
+            'end_date.required' => 'La data di fine è obbligatoria.',
+            'end_date.date' => 'La data di fine deve essere una data valida.',
+            'end_date.after_or_equal' => 'La data di fine deve essere uguale o successiva alla data di inizio.',
+        ]);
 
-        $trips = new Trip();
-        $trips->name = $new_trip['name'];
+        // Se la validazione passa, procedi con la creazione del nuovo viaggio
+        $new_trip = new Trip();
+        $new_trip->fill($validatedData);
+        $new_trip->slug = Helper::generateSlug($new_trip->name, Trip::class);
+        $new_trip->save();
 
-        $trips->start_date = $new_trip['start_date'];
-        $trips->end_date = $new_trip['end_date'];
-        $trips->save();
-        return response()->json(compact('trips'));
+        // Calcola i giorni del viaggio
+        $start_date = new DateTime($new_trip->start_date);
+        $end_date = new DateTime($new_trip->end_date);
+        $interval = $end_date->diff($start_date);
+        $n_days = $interval->days + 1;
+
+        // Crea le istanze dei giorni
+        for ($i = 0; $i < $n_days; $i++) {
+            $new_day = new Day();
+            $new_day->trip_id = $new_trip->id;
+            $new_day->date = date('y-m-d', strtotime($new_trip->start_date . "+$i days"));
+            $new_day->save();
+        }
+
+        return response()->json(compact('new_trip'));
     }
 
     /**

@@ -11,8 +11,10 @@ class Trip extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'start_date',
         'end_date',
+        'description'
     ];
 
     public function days()
