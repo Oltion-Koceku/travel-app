@@ -9,6 +9,9 @@ class Image extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['day_id', 'path', 'name'];
+
+
     public function day()
     {
         return $this->belongsTo(Day::class);

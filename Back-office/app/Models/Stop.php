@@ -10,18 +10,11 @@ class Stop extends Model
     use HasFactory;
 
     protected $fillable = [
-        'day_id',
-        'title',
-        'description',
-        'image',
-        'food',
-        'curiosities',
-        'notes',
-        'rating',
-        'completed',
+        'name',
         'latitude',
         'longitude',
-    ];
+        'day_id'
+      ];
 
     public function day()
     {

@@ -28,6 +28,7 @@ class TripsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
         // Definisci le regole di validazione con messaggi personalizzati
@@ -53,8 +54,15 @@ class TripsController extends Controller
             'image.max' => "L'immagine non può superare i 2MB di dimensione.",
         ]);
 
+        // Se un'immagine è stata caricata, salvala e aggiorna il percorso nel validatedData
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $originalName = $image->getClientOriginalName();
+            $imagePath = $image->storeAs('uploads', $originalName, 'public');
+            $validatedData['image'] = $imagePath; // Aggiorna validatedData con il percorso dell'immagine
+        }
 
-        // Se la validazione passa, procedi con la creazione del nuovo viaggio
+        // Creazione del nuovo viaggio
         $new_trip = new Trip();
         $new_trip->fill($validatedData);
         $new_trip->slug = Helper::generateSlug($new_trip->name, Trip::class);
@@ -70,12 +78,13 @@ class TripsController extends Controller
         for ($i = 0; $i < $n_days; $i++) {
             $new_day = new Day();
             $new_day->trip_id = $new_trip->id;
-            $new_day->date = date('y-m-d', strtotime($new_trip->start_date . "+$i days"));
+            $new_day->date = date('Y-m-d', strtotime($new_trip->start_date . "+$i days"));
             $new_day->save();
         }
 
         return response()->json(compact('new_trip'));
     }
+
 
     /**
      * Display the specified resource.
