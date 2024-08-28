@@ -20,6 +20,14 @@ class TripsController extends Controller
         return response()->json(compact('trips'));
     }
 
+    public function getAllDays($slug){
+
+        $getDays = Trip::where('slug', $slug)->with('days')->first();
+
+        return response()->json(compact('getDays'));
+
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -59,7 +67,7 @@ class TripsController extends Controller
             $image = $request->file('image');
             $originalName = $image->getClientOriginalName();
             $imagePath = $image->storeAs('uploads', $originalName, 'public');
-            $validatedData['image'] = $imagePath; // Aggiorna validatedData con il percorso dell'immagine
+            $validatedData['image'] = $imagePath;
         }
 
         // Creazione del nuovo viaggio

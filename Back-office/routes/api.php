@@ -22,7 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// days
 Route::resource('days', DaysController::class);
+// stops
 Route::resource('stops', StopsController::class);
+// trip
 Route::resource('trips', TripsController::class);
-
+route::get('trip-detail/{slug}',[TripsController::class, 'getAllDays']);
