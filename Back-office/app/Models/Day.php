@@ -13,6 +13,7 @@ class Day extends Model
     protected $fillable = [
         'trip_id',
         'date',
+        'description'
     ];
 
     public function trip()
@@ -23,5 +24,10 @@ class Day extends Model
     public function stops()
     {
         return $this->hasMany(Stop::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
     }
 }

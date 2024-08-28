@@ -21,6 +21,7 @@ export default {
         .then((res) => {
           console.log(res.data);
           store.idTrip = res.data.id;
+          this.$router.push('/');
         })
         .catch((errors) => {
           console.log(errors.message);

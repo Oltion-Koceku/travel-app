@@ -27,4 +27,9 @@ class Stop extends Model
     {
         return $this->belongsTo(Day::class);
     }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }

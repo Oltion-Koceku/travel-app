@@ -22,6 +22,7 @@ export default {
           console.log(errors.message);
         });
     },
+    
   },
 
   mounted() {
@@ -38,7 +39,7 @@ export default {
             <div v-for="(trip, index) in data" :key="index" class="cardcontainer">
               <div class="photo">
                 <img
-                  src="https://images.pexels.com/photos/2346006/pexels-photo-2346006.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=1&w=500"
+                  :src="`https://picsum.photos/200/30${index}`"
                 />
                 <div class="photos">Photos</div>
               </div>
