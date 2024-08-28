@@ -34,8 +34,9 @@ class TripsController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
+            'start_date' => 'required|date|before:end_date',
+            'end_date' => 'required|date|after:start_date',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'name.required' => 'Il nome del viaggio è obbligatorio.',
             'name.string' => 'Il nome del viaggio deve essere una stringa.',
@@ -43,10 +44,15 @@ class TripsController extends Controller
             'description.string' => 'La descrizione deve essere una stringa.',
             'start_date.required' => 'La data di inizio è obbligatoria.',
             'start_date.date' => 'La data di inizio deve essere una data valida.',
+            'start_date.before' => 'La data di inizio deve essere prima della data di fine.',
             'end_date.required' => 'La data di fine è obbligatoria.',
             'end_date.date' => 'La data di fine deve essere una data valida.',
-            'end_date.after_or_equal' => 'La data di fine deve essere uguale o successiva alla data di inizio.',
+            'end_date.after' => 'La data di fine deve essere successiva alla data di inizio.',
+            'image.image' => "Il file deve essere un'immagine.",
+            'image.mimes' => "L'immagine deve essere in formato jpeg, png, jpg, o gif.",
+            'image.max' => "L'immagine non può superare i 2MB di dimensione.",
         ]);
+
 
         // Se la validazione passa, procedi con la creazione del nuovo viaggio
         $new_trip = new Trip();

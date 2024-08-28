@@ -14,7 +14,8 @@ class Trip extends Model
         'slug',
         'start_date',
         'end_date',
-        'description'
+        'description',
+        'image'
     ];
 
     public function days()
