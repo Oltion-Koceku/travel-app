@@ -53,7 +53,7 @@ export default {
                 alt=""
               />
             </th  >
-            <th class="d-flex align-items-center justify-content-center"><div class="btn btn-warning w-50">Modifica</div></th>
+            <th class="d-flex align-items-center justify-content-center"><div @click="this.$router.push({ name: 'dayDetail', params: { slug: this.$route.params.slug, date: day.date } })" class="btn btn-warning w-50">Modifica</div></th>
           </tr>
         </tbody>
       </table>

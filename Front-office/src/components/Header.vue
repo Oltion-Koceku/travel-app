@@ -9,11 +9,11 @@
 <template>
   <div class="nav d-flex justify-content-around">
     <div class="title d-flex align-items-center">
-      <h1>Travel-App</h1>
+      <h1 @click="this.$router.push('/')">Travel-App</h1>
     </div>
     
     <div class="button d-flex justify-content-between align-items-center">
-      <button><i class="fa-solid fa-map"></i></button>
+      <button @click="this.$router.push('/maps')"><i class="fa-solid fa-map"></i></button>
       <router-link :to="{ name : 'addtrip' }" ><i class="fa-solid fa-plus"></i></router-link>
     </div>
   </div>

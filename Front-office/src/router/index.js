@@ -3,6 +3,8 @@ import Home from '@/views/Home.vue'
 import Addtrip from '@/views/Addtrip.vue'
 import Error404 from '@/views/Error404.vue'
 import TripDetail from '@/views/TripDetail.vue'
+import Map from '@/views/Map.vue'
+import DayDetail from '@/views/DayDetail.vue'
 
 
 const router = createRouter({
@@ -23,6 +25,18 @@ const router = createRouter({
       path: '/trip-detail/:slug',
       name: 'tripDetail',
       component: TripDetail
+    },
+
+    {
+      path: '/maps',
+      name: 'maps',
+      component: Map
+    },
+
+    {
+      path: '/day-detail/:slug/:date',
+      name: 'dayDetail',
+      component: DayDetail
     },
 
     {
