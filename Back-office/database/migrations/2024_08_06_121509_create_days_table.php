@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('trip_id')->constrained()->onDelete('cascade');
             $table->date('date');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
