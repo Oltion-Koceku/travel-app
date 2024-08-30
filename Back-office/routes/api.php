@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // days
 Route::resource('days', DaysController::class);
+route::get('day-detail/{slug}/{date}',[DaysController::class, 'dayDetail']);
 // stops
 Route::resource('stops', StopsController::class);
 // trip

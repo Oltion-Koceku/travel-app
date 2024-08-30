@@ -29,7 +29,7 @@ export default {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container my-4">
     <div class="trips">
       <table class="table">
         <thead>
